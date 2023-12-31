@@ -33,7 +33,7 @@ function Cabintable() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["cabin"],
+    queryKey: ["cabins"],
     queryFn: getCabins,
   });
   if (isLoading) return <Spinner />;
