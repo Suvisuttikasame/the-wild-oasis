@@ -5,10 +5,9 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import { Textarea } from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { CreateEditCabin } from "../../services/apiCabins";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import PropTypes from "prop-types";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 // We use react-hook-form to make working with complex and REAL-WORLD forms a lot easier. It handles stuff like user validation and errors. manages the form state for us, etc
 // Validating the user’s data passed through the form is a crucial responsibility for a developer.
@@ -22,36 +21,20 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     defaultValues: editSession ? editValues : {},
   });
   const { errors } = formState;
-  const queryClient = useQueryClient();
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: CreateEditCabin,
-    onSuccess: () => {
-      toast.success("successfully created");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newCabin, id }) => CreateEditCabin(newCabin, id),
-    onSuccess: () => {
-      toast.success("successfully edited");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
+  const { createCabin, isCreating } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
     if (editSession) editCabin({ newCabin: { ...data, image }, id: editId });
-    else createCabin({ ...data, image: image }, editId);
+    else
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: () => reset(),
+        }
+      );
   }
 
   function onError(error) {
