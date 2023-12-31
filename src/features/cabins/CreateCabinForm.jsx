@@ -31,7 +31,7 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(error) {
@@ -103,7 +103,7 @@ function CreateCabinForm() {
         />
       </FormRow>
       <FormRow label="Cabin Picture">
-        <FileInput accept="image/*" id="image" />
+        <FileInput accept="image/*" id="image" {...register("image")} />
       </FormRow>
       <FormRow>
         <Button variation="secondary" type="reset">
