@@ -3,9 +3,9 @@ import supabase from "./superBaseClient";
 
 export async function getBookings() {
   const { data, error } = await supabase
-    .from("booking")
+    .from("bookings")
     .select(
-      "id, create_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
     );
 
   if (error) {
