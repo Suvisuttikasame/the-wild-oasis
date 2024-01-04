@@ -2,7 +2,11 @@ import { getToday } from "../utils/helpers";
 import supabase from "./superBaseClient";
 
 export async function getBookings() {
-  const { data, error } = await supabase.from("booking").select("*");
+  const { data, error } = await supabase
+    .from("booking")
+    .select(
+      "id, create_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+    );
 
   if (error) {
     console.log(error);
