@@ -3,7 +3,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Spinner from "../../ui/Spinner";
 import { useEditSetting } from "./useEditSetting";
-import { useSetting } from "./useSetting";
+import { useSettings } from "./useSettings";
 
 function UpdateSettingsForm() {
   const {
@@ -14,7 +14,7 @@ function UpdateSettingsForm() {
       maxGuestPerBooking,
       breakfastPrice,
     } = {},
-  } = useSetting();
+  } = useSettings();
 
   const { editSetting, isEditing } = useEditSetting();
 
