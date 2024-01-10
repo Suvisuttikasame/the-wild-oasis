@@ -77,7 +77,9 @@ function BookingDetail() {
             <ConfirmDelete
               resource="booking"
               // These options will be passed wherever the function gets called, and they determine what happens next
-              onConfirm={(options) => deleteBooking(bookingId, options)}
+              onConfirm={() =>
+                deleteBooking(bookingId, { onSuccess: () => navigate(-1) })
+              }
               disabled={isDeleting}
             />
           </Modal.Window>
