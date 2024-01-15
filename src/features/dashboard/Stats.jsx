@@ -3,9 +3,10 @@ import {
   HiOutlineCalendarDays,
   HiOutlineBanknotes,
   HiOutlineChartBar,
-} from 'react-icons/hi2';
-import { formatCurrency } from 'utils/helpers';
-import Stat from './Stat';
+} from "react-icons/hi2";
+import { formatCurrency } from "../../utils/helpers";
+import Stat from "./Stat";
+import PropTypes from "prop-types";
 
 function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
   // Stat 1)
@@ -27,30 +28,37 @@ function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
     <>
       <Stat
         icon={<HiOutlineBriefcase />}
-        title='Bookings'
+        title="Bookings"
         value={numBookings}
-        color='blue'
+        color="blue"
       />
       <Stat
         icon={<HiOutlineBanknotes />}
-        title='Sales'
+        title="Sales"
         value={formatCurrency(sales)}
-        color='green'
+        color="green"
       />
       <Stat
         icon={<HiOutlineCalendarDays />}
-        title='Check ins'
+        title="Check ins"
         value={checkins}
-        color='indigo'
+        color="indigo"
       />
       <Stat
         icon={<HiOutlineChartBar />}
-        title='Occupancy rate'
-        value={Math.round(occupation * 100) + '%'}
-        color='yellow'
+        title="Occupancy rate"
+        value={Math.round(occupation * 100) + "%"}
+        color="yellow"
       />
     </>
   );
 }
+
+Stats.propTypes = {
+  bookings: PropTypes.array,
+  confirmedStays: PropTypes.array,
+  numDays: PropTypes.number,
+  cabinCount: PropTypes.number,
+};
 
 export default Stats;
