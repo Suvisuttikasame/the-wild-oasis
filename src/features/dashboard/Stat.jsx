@@ -1,9 +1,7 @@
-import styled from 'styled-components';
-import { box } from 'styles/styles';
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledStat = styled.div`
-  ${box}
-
   padding: 1.6rem;
   display: grid;
   grid-template-columns: 6.4rem 1fr;
@@ -55,5 +53,11 @@ function Stat({ icon, title, value, color }) {
     </StyledStat>
   );
 }
+Stat.propTypes = {
+  icon: PropTypes.node,
+  title: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  color: PropTypes.string,
+};
 
 export default Stat;
